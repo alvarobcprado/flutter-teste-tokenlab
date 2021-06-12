@@ -12,23 +12,28 @@ class _HomeViewState extends State<HomeView> {
   HomeController controller = HomeController();
 
   @override
+  void initState() {
+    super.initState();
+    controller.start();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('Teste Tokenlab'),
       ),
       body: GridView.builder(
-        itemCount: 10,
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisSpacing: 15,
           crossAxisCount: 2,
           mainAxisSpacing: 15,
-          mainAxisExtent: 250,
+          mainAxisExtent: 300,
         ),
         itemBuilder: (context, index) {
           return Container(
             child: Image.network(
-              "https://static.imasters.com.br/wp-content/uploads/2015/05/Figura2_api.jpg",
+              'https://pub.dev/static/img/ff-banner-desktop-2x.png?hash=48nbn83rjrlg52rnkp4lq1npafu8jsve',
             ),
           );
         },

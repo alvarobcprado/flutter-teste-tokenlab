@@ -13,7 +13,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Container(),
       routes: {
         '/': (context) => HomeView(),
         '/details': (context) => DetailsView(),
