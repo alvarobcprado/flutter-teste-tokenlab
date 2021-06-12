@@ -36,15 +36,35 @@ class _HomeViewState extends State<HomeView> {
         );
       case HomeState.succesful:
         return GridView.builder(
+          padding: EdgeInsets.symmetric(horizontal: 10, vertical: 15),
+          itemCount: controller.moviesList.length,
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisSpacing: 15,
+            crossAxisSpacing: 10,
             crossAxisCount: 2,
-            mainAxisSpacing: 15,
-            mainAxisExtent: 300,
+            mainAxisSpacing: 10,
+            childAspectRatio: 2 / 3,
           ),
           itemBuilder: (context, index) {
-            return Container(
-              child: Image.network(controller.moviesList[index].posterUrl),
+            return Column(
+              children: [
+                Expanded(
+                  flex: 9,
+                  child: Image(
+                    image: NetworkImage(
+                      controller.moviesList[index].posterUrl,
+                    ),
+                    errorBuilder: (context, error, stackTrace) {
+                      return Image.asset(
+                        "assets/images/placeholder.png",
+                      );
+                    },
+                  ),
+                ),
+                Expanded(
+                  flex: 1,
+                  child: Text(controller.moviesList[index].title),
+                ),
+              ],
             );
           },
         );
