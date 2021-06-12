@@ -17,25 +17,50 @@ class _HomeViewState extends State<HomeView> {
     controller.start();
   }
 
+  manageState(HomeState state) {
+    switch (state) {
+      case HomeState.starting:
+        return Container();
+      case HomeState.loading:
+        return Center(
+          child: CircularProgressIndicator(),
+        );
+      case HomeState.error:
+        return Center(
+          child: TextButton(
+            onPressed: () {
+              controller.start();
+            },
+            child: Text("Tentar Novamente"),
+          ),
+        );
+      case HomeState.succesful:
+        return GridView.builder(
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisSpacing: 15,
+            crossAxisCount: 2,
+            mainAxisSpacing: 15,
+            mainAxisExtent: 300,
+          ),
+          itemBuilder: (context, index) {
+            return Container(
+              child: Image.network(controller.moviesList[index].posterUrl),
+            );
+          },
+        );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('Teste Tokenlab'),
       ),
-      body: GridView.builder(
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisSpacing: 15,
-          crossAxisCount: 2,
-          mainAxisSpacing: 15,
-          mainAxisExtent: 300,
-        ),
-        itemBuilder: (context, index) {
-          return Container(
-            child: Image.network(
-              'https://pub.dev/static/img/ff-banner-desktop-2x.png?hash=48nbn83rjrlg52rnkp4lq1npafu8jsve',
-            ),
-          );
+      body: ValueListenableBuilder<HomeState>(
+        valueListenable: controller.state,
+        builder: (BuildContext context, HomeState state, _) {
+          return manageState(controller.state.value);
         },
       ),
     );
