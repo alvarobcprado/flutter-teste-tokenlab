@@ -8,6 +8,7 @@ class MovieRepository {
   Future fetchMovies() async {
     final response = await dio.get(baseUrl);
     final responseData = response.data as List;
+
     List<MovieModel> listMovies = responseData.map((movieJson) {
       return MovieModel.fromJson(movieJson);
     }).toList();

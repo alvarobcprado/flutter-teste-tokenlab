@@ -4,7 +4,7 @@ import 'package:teste_tokenlab/app/repositories/movie_repository.dart';
 
 main() {
   final movieRepo = MovieRepository();
-  test("Trás uma lista de movies", () async {
+  test("Deve retornar uma lista de movies model", () async {
     final List<MovieModel> movies = await movieRepo.fetchMovies();
     expect(movies[3].id, 372058);
   });
