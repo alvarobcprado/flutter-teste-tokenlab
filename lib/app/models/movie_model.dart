@@ -1,12 +1,10 @@
-import 'dart:convert';
-
 class MovieModel {
-  final int id;
-  final double voteAverage;
-  final String title;
-  final String posterUrl;
-  final List<String> genres;
-  final String releaseDate;
+  late int id;
+  late double voteAverage;
+  late String title;
+  late String posterUrl;
+  late List<String> genres;
+  late String releaseDate;
 
   MovieModel({
     required this.id,
@@ -17,30 +15,23 @@ class MovieModel {
     required this.releaseDate,
   });
 
-  Map<String, dynamic> toMap() {
-    return {
-      'id': id,
-      'voteAverage': voteAverage,
-      'title': title,
-      'posterUrl': posterUrl,
-      'genres': genres,
-      'releaseDate': releaseDate,
-    };
+  MovieModel.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    voteAverage = json['vote_average'];
+    title = json['title'];
+    posterUrl = json['poster_url'];
+    genres = json['genres'].cast<String>();
+    releaseDate = json['release_date'];
   }
 
-  factory MovieModel.fromMap(Map<String, dynamic> map) {
-    return MovieModel(
-      id: map['id'],
-      voteAverage: map['voteAverage'],
-      title: map['title'],
-      posterUrl: map['posterUrl'],
-      genres: List<String>.from(map['genres']),
-      releaseDate: map['releaseDate'],
-    );
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['vote_average'] = this.voteAverage;
+    data['title'] = this.title;
+    data['poster_url'] = this.posterUrl;
+    data['genres'] = this.genres;
+    data['release_date'] = this.releaseDate;
+    return data;
   }
-
-  String toJson() => json.encode(toMap());
-
-  factory MovieModel.fromJson(String source) =>
-      MovieModel.fromMap(json.decode(source));
 }
