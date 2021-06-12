@@ -7,4 +7,13 @@ class HomeController {
   Future start() async {
     moviesList = await movieRepo.fetchMovies();
   }
+
+  HomeState state = HomeState.starting;
+}
+
+enum HomeState {
+  starting,
+  loading,
+  succesful,
+  error,
 }
