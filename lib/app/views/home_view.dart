@@ -21,10 +21,12 @@ class _HomeViewState extends State<HomeView> {
     switch (state) {
       case HomeState.starting:
         return Container();
+
       case HomeState.loading:
         return Center(
           child: CircularProgressIndicator(),
         );
+
       case HomeState.error:
         return Center(
           child: TextButton(
@@ -34,6 +36,7 @@ class _HomeViewState extends State<HomeView> {
             child: Text("Tentar Novamente"),
           ),
         );
+
       case HomeState.succesful:
         return GridView.builder(
           padding: EdgeInsets.symmetric(horizontal: 10, vertical: 15),
@@ -49,11 +52,12 @@ class _HomeViewState extends State<HomeView> {
               children: [
                 Expanded(
                   flex: 9,
-                  child: Image(
+                  child: FadeInImage(
                     image: NetworkImage(
                       controller.moviesList[index].posterUrl,
                     ),
-                    errorBuilder: (context, error, stackTrace) {
+                    placeholder: AssetImage('assets/images/placeholder.png'),
+                    imageErrorBuilder: (context, error, stackTrace) {
                       return Image.asset(
                         "assets/images/placeholder.png",
                       );
