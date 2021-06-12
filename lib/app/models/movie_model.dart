@@ -16,4 +16,31 @@ class MovieModel {
     required this.genres,
     required this.releaseDate,
   });
+
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'voteAverage': voteAverage,
+      'title': title,
+      'posterUrl': posterUrl,
+      'genres': genres,
+      'releaseDate': releaseDate,
+    };
+  }
+
+  factory MovieModel.fromMap(Map<String, dynamic> map) {
+    return MovieModel(
+      id: map['id'],
+      voteAverage: map['voteAverage'],
+      title: map['title'],
+      posterUrl: map['posterUrl'],
+      genres: List<String>.from(map['genres']),
+      releaseDate: map['releaseDate'],
+    );
+  }
+
+  String toJson() => json.encode(toMap());
+
+  factory MovieModel.fromJson(String source) =>
+      MovieModel.fromMap(json.decode(source));
 }
