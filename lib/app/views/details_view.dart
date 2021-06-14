@@ -5,6 +5,12 @@ class DetailsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    final argId = ModalRoute.of(context)!.settings.arguments as int;
+
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Details page $argId"),
+      ),
+    );
   }
 }
