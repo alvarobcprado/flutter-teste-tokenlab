@@ -7,11 +7,11 @@ class HomeController {
   final ValueNotifier<HomeState> state =
       ValueNotifier<HomeState>(HomeState.starting);
 
-  final movieRepo = MovieRepository();
+  final _movieRepo = MovieRepository();
   Future start() async {
     state.value = HomeState.loading;
     try {
-      moviesList = await movieRepo.fetchMovies();
+      moviesList = await _movieRepo.fetchMovies();
       state.value = HomeState.succesful;
     } catch (e) {
       print(e);

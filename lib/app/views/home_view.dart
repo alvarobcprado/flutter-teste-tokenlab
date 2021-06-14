@@ -105,7 +105,7 @@ class _HomeViewState extends State<HomeView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Teste Tokenlab'),
+        title: Text('Tokenlab'),
       ),
       body: ValueListenableBuilder<HomeState>(
         valueListenable: controller.state,
