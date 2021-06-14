@@ -1,16 +1,12 @@
-# teste_tokenlab
+# Teste técnico estágio mobile Tokenlab
 
-A new Flutter project.
+Projeto flutter criado para o teste de estágio mobile da tokenlab.
 
-## Getting Started
+## Detalhes
 
-This project is a starting point for a Flutter application.
+Esse projeto consiste em um app que obtem, de uma API, dados de filmes, apresentando-os de forma simples e acessível.
 
-A few resources to get you started if this is your first Flutter project:
+O aplicativo possui duas telas:
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- A tela inicial exibe a lista dos filmes com image e título e, ao clicar no filme o usuário é direcionado para a segunda tela (detalhes do filme).
+- A segunda tela exibe os detalhes do filme selecionado anteriormente, com informações como título, nota, gênero(s) etc.
