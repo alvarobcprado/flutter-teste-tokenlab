@@ -61,7 +61,7 @@ class _HomeViewState extends State<HomeView> {
                 Navigator.pushNamed(
                   context,
                   "/details",
-                  arguments: controller.moviesList[index].id,
+                  arguments: controller.moviesList[index],
                 );
               },
               child: Column(
