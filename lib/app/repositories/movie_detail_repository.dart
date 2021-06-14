@@ -5,9 +5,9 @@ class MovieDetailRepository {
   final dio = Dio();
   final baseUrl = 'https://desafio-mobile.nyc3.digitaloceanspaces.com/movies';
 
-  Future fetchMovieDetail() async {
+  Future fetchMovieDetail(int movieId) async {
     try {
-      final response = await dio.get(baseUrl);
+      final response = await dio.get(baseUrl + "/$movieId");
       final responseData = response.data;
 
       final MovieDetailModel detailMovie =
