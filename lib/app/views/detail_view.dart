@@ -45,9 +45,10 @@ class _DetailsViewState extends State<DetailsView> {
 
       case DetailState.succesful:
         return ListView(
-          padding: EdgeInsets.all(10),
+          padding: EdgeInsets.all(15),
           children: [
             Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Expanded(
                   flex: 2,
@@ -92,7 +93,7 @@ class _DetailsViewState extends State<DetailsView> {
                 ),
               ],
             ),
-            SizedBox(height: 10),
+            SizedBox(height: 15),
             Text("Sinopse:"),
             SizedBox(height: 5),
             Text("${controller.movieDetail!.overview}"),

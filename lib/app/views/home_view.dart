@@ -46,12 +46,12 @@ class _HomeViewState extends State<HomeView> {
 
       case HomeState.succesful:
         return GridView.builder(
-          padding: EdgeInsets.symmetric(horizontal: 10, vertical: 15),
+          padding: EdgeInsets.symmetric(vertical: 15),
           itemCount: controller.moviesList.length,
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisSpacing: 10,
             crossAxisCount: 2,
-            mainAxisSpacing: 20,
+            mainAxisSpacing: 0,
             childAspectRatio: 2 / 3,
           ),
           itemBuilder: (context, index) {
