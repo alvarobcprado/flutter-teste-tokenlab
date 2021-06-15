@@ -96,7 +96,10 @@ class _DetailsViewState extends State<DetailsView> {
             SizedBox(height: 15),
             Text("Sinopse:"),
             SizedBox(height: 5),
-            Text("${controller.movieDetail!.overview}"),
+            Text(
+              "${controller.movieDetail!.overview}",
+              textAlign: TextAlign.justify,
+            ),
           ],
         );
     }
