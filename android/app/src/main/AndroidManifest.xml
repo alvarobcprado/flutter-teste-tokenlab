@@ -1,5 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.teste_tokenlab">
+   <uses-permission android:name="android.permission.INTERNET" />
    <application
         android:label="teste_tokenlab"
         android:icon="@mipmap/ic_launcher">
