@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:teste_tokenlab/app/controllers/detail_controller.dart';
 import 'package:teste_tokenlab/app/models/movie_model.dart';
 
+///Widget para ser exibido quando a requisição da detailView for bem sucedida
 class DetailViewSucessStateWidget extends StatelessWidget {
   const DetailViewSucessStateWidget(
       {Key? key, required this.movie, required this.controller})

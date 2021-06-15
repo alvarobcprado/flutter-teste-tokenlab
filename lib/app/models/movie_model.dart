@@ -1,3 +1,4 @@
+///Model dos filmes obtidos a partir da URL base da api
 class MovieModel {
   late int id;
   late double voteAverage;
@@ -15,6 +16,7 @@ class MovieModel {
     required this.releaseDate,
   });
 
+  ///Serialização do JSON para o Model
   MovieModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     voteAverage = json['vote_average'];
@@ -24,6 +26,7 @@ class MovieModel {
     releaseDate = json['release_date'];
   }
 
+  ///Desserialização do Model para JSON
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;

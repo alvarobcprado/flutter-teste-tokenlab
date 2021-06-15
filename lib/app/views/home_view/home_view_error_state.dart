@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:teste_tokenlab/app/controllers/home_controller.dart';
 
+///Widget para ser exibido quando ocorrer algum erro na requisição da homeView
 class HomeViewErrorStateWidget extends StatelessWidget {
   const HomeViewErrorStateWidget({Key? key, required this.controller})
       : super(key: key);

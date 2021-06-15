@@ -14,7 +14,8 @@ class DetailsView extends StatefulWidget {
 class _DetailsViewState extends State<DetailsView> {
   DetailController controller = DetailController();
 
-  manageState(DetailState state, MovieModel argMovie) {
+  ///Gerenciador local de exibição de widgets de acordo com o estado da requisição
+  Widget manageState(DetailState state, MovieModel argMovie) {
     switch (state) {
       case DetailState.starting:
         return Container();

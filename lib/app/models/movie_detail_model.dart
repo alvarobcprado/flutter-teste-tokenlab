@@ -1,3 +1,4 @@
+///Model dos filmes obtidos a partir da URL específica na API
 class MovieDetailModel {
   late String imdbId;
   late String originalLanguage;
@@ -15,6 +16,7 @@ class MovieDetailModel {
     required this.voteCount,
   });
 
+  ///Serialização do JSON para o Model
   MovieDetailModel.fromJson(Map<String, dynamic> json) {
     imdbId = json['imdb_id'];
     originalLanguage = json['original_language'];
@@ -24,6 +26,7 @@ class MovieDetailModel {
     voteCount = json['vote_count'];
   }
 
+  ///Desserialização do Model para JSON
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['imdb_id'] = this.imdbId;

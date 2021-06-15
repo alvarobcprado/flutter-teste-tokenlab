@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:teste_tokenlab/app/controllers/home_controller.dart';
 
+///Widget para ser exibido quando a requisição da homeView for bem sucedida
 class HomeViewSucessStateWidget extends StatelessWidget {
   const HomeViewSucessStateWidget({Key? key, required this.controller})
       : super(key: key);

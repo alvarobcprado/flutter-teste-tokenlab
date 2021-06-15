@@ -19,7 +19,8 @@ class _HomeViewState extends State<HomeView> {
     controller.start();
   }
 
-  manageState(HomeState state) {
+  ///Gerenciador local de exibição de widgets de acordo com o estado da requisição
+  Widget manageState(HomeState state) {
     switch (state) {
       case HomeState.starting:
         return Container();
