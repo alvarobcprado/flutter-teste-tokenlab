@@ -9,6 +9,7 @@ class DetailController {
       ValueNotifier<DetailState>(DetailState.starting);
 
   final _movieDetailRepo = MovieDetailRepository();
+
   Future<MovieDetailModel?> start(int movieId) async {
     state.value = DetailState.loading;
     try {

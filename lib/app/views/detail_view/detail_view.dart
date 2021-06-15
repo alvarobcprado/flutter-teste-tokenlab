@@ -14,10 +14,6 @@ class DetailsView extends StatefulWidget {
 class _DetailsViewState extends State<DetailsView> {
   DetailController controller = DetailController();
 
-  String mapList(List l) {
-    return l.map((e) => '$e').toString();
-  }
-
   manageState(DetailState state, MovieModel argMovie) {
     switch (state) {
       case DetailState.starting:
