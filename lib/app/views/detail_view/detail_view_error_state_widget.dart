@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:teste_tokenlab/app/controllers/detail_controller.dart';
 import 'package:teste_tokenlab/app/models/movie_model.dart';
 
-class ErrorStateWidget extends StatelessWidget {
-  const ErrorStateWidget(
+class DetailViewErrorStateWidget extends StatelessWidget {
+  const DetailViewErrorStateWidget(
       {Key? key, required this.movie, required this.controller})
       : super(key: key);
 
