@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:teste_tokenlab/app/controllers/detail_controller.dart';
 import 'package:teste_tokenlab/app/models/movie_model.dart';
-import 'package:teste_tokenlab/app/views/detail_view/error_state_widget.dart';
-import 'package:teste_tokenlab/app/views/detail_view/sucess_state_widget.dart';
+import 'package:teste_tokenlab/app/views/detail_view/detail_view_error_state_widget.dart';
+import 'package:teste_tokenlab/app/views/detail_view/detail_view_sucess_state_widget.dart';
 
 class DetailsView extends StatefulWidget {
   const DetailsView({Key? key}) : super(key: key);
@@ -29,10 +29,12 @@ class _DetailsViewState extends State<DetailsView> {
         );
 
       case DetailState.error:
-        return ErrorStateWidget(movie: argMovie, controller: controller);
+        return DetailViewErrorStateWidget(
+            movie: argMovie, controller: controller);
 
       case DetailState.succesful:
-        return SucessStateWidget(movie: argMovie, controller: controller);
+        return DetailViewSucessStateWidget(
+            movie: argMovie, controller: controller);
     }
   }
 
