@@ -80,7 +80,7 @@ class _HomeViewState extends State<HomeView> {
                             Image.asset(
                               "assets/images/placeholder.png",
                             ),
-                            Icon(Icons.error),
+                            Icon(Icons.warning),
                           ],
                         );
                       },

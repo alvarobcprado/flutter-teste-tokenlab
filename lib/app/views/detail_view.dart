@@ -49,10 +49,12 @@ class _DetailsViewState extends State<DetailsView> {
           children: [
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Expanded(
-                  flex: 2,
+                  flex: 3,
                   child: FadeInImage(
+                    alignment: Alignment.topLeft,
                     image: NetworkImage(
                       argMovie.posterUrl,
                     ),
@@ -64,7 +66,7 @@ class _DetailsViewState extends State<DetailsView> {
                           Image.asset(
                             "assets/images/placeholder.png",
                           ),
-                          Icon(Icons.error),
+                          Icon(Icons.warning),
                         ],
                       );
                     },
@@ -72,9 +74,10 @@ class _DetailsViewState extends State<DetailsView> {
                 ),
                 SizedBox(width: 10),
                 Expanded(
-                  flex: 4,
+                  flex: 5,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Text("Título: ${argMovie.title}"),
                       Text("Gênero(s): ${argMovie.genres.join(", ")}"),
@@ -94,6 +97,7 @@ class _DetailsViewState extends State<DetailsView> {
               ],
             ),
             SizedBox(height: 15),
+            Divider(),
             Text("Sinopse:"),
             SizedBox(height: 5),
             Text(
