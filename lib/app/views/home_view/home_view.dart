@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:teste_tokenlab/app/controllers/home_controller.dart';
+import 'package:teste_tokenlab/app/views/home_view/home_view_error_state.dart';
+import 'package:teste_tokenlab/app/views/home_view/home_view_sucess_state_widget.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({Key? key}) : super(key: key);
@@ -28,76 +30,10 @@ class _HomeViewState extends State<HomeView> {
         );
 
       case HomeState.error:
-        return Center(
-          child: TextButton(
-            onPressed: () {
-              controller.start();
-            },
-            child: Text("Tentar Novamente"),
-            style: TextButton.styleFrom(
-              primary: Theme.of(context).primaryColor,
-              padding: EdgeInsets.all(15),
-              side: BorderSide(
-                color: Theme.of(context).primaryColor,
-              ),
-            ),
-          ),
-        );
+        return HomeViewErrorStateWidget(controller: controller);
 
       case HomeState.succesful:
-        return GridView.builder(
-          padding: EdgeInsets.symmetric(vertical: 15),
-          itemCount: controller.moviesList.length,
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisSpacing: 10,
-            crossAxisCount: 2,
-            mainAxisSpacing: 0,
-            childAspectRatio: 2 / 3,
-          ),
-          itemBuilder: (context, index) {
-            return GestureDetector(
-              onTap: () {
-                print("click");
-                Navigator.pushNamed(
-                  context,
-                  "/details",
-                  arguments: controller.moviesList[index],
-                );
-              },
-              child: Column(
-                children: [
-                  Expanded(
-                    flex: 10,
-                    child: FadeInImage(
-                      image: NetworkImage(
-                        controller.moviesList[index].posterUrl,
-                      ),
-                      placeholder: AssetImage('assets/images/placeholder.png'),
-                      imageErrorBuilder: (context, error, stackTrace) {
-                        return Stack(
-                          alignment: Alignment.center,
-                          children: [
-                            Image.asset(
-                              "assets/images/placeholder.png",
-                            ),
-                            Icon(Icons.warning),
-                          ],
-                        );
-                      },
-                    ),
-                  ),
-                  Expanded(
-                    flex: 2,
-                    child: Text(
-                      controller.moviesList[index].title,
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                ],
-              ),
-            );
-          },
-        );
+        return HomeViewSucessStateWidget(controller: controller);
     }
   }
 
