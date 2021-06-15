@@ -11,7 +11,10 @@ class HomeViewSucessStateWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GridView.builder(
-      padding: EdgeInsets.symmetric(vertical: 15),
+      padding: EdgeInsets.symmetric(
+        vertical: 15,
+        horizontal: 10,
+      ),
       itemCount: controller.moviesList.length,
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisSpacing: 10,
@@ -34,6 +37,7 @@ class HomeViewSucessStateWidget extends StatelessWidget {
               Expanded(
                 flex: 10,
                 child: FadeInImage(
+                  fit: BoxFit.fitHeight,
                   image: NetworkImage(
                     controller.moviesList[index].posterUrl,
                   ),
@@ -53,9 +57,12 @@ class HomeViewSucessStateWidget extends StatelessWidget {
               ),
               Expanded(
                 flex: 2,
-                child: Text(
-                  controller.moviesList[index].title,
-                  textAlign: TextAlign.center,
+                child: Container(
+                  alignment: Alignment.topCenter,
+                  child: Text(
+                    controller.moviesList[index].title,
+                    textAlign: TextAlign.center,
+                  ),
                 ),
               ),
             ],
