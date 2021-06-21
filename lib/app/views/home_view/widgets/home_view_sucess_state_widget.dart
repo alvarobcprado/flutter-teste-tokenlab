@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:teste_tokenlab/app/controllers/home_controller.dart';
 
@@ -34,6 +35,27 @@ class HomeViewSucessStateWidget extends StatelessWidget {
           },
           child: Column(
             children: [
+              Expanded(
+                flex: 10,
+                child: Container(
+                  width: 200,
+                  height: 300,
+                  // child: CachedNetworkImage(
+                  //   imageUrl: controller.moviesList[index].posterUrl,
+                  //   placeholder: (context, _) =>
+                  //       Image.asset('assets/images/placeholder.png'),
+                  //   errorWidget: (context, _, __) => Stack(
+                  //     alignment: Alignment.center,
+                  //     children: [
+                  //       Image.asset(
+                  //         "assets/images/placeholder.png",
+                  //       ),
+                  //       Icon(Icons.warning),
+                  //     ],
+                  //   ),
+                  // ),
+                ),
+              ),
               Expanded(
                 flex: 10,
                 child: FadeInImage(
