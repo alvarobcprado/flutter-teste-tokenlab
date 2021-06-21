@@ -11,30 +11,30 @@ class HomeViewErrorStateWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Container(
-        child: Column(
-          children: [
-            Text(
-              "Algo inesperado aconteceu x.x",
-              style: TextStyle(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            "Algo inesperado aconteceu x.x",
+            style: TextStyle(
+              color: Colors.red,
+            ),
+          ),
+          SizedBox(height: 15),
+          TextButton(
+            onPressed: () {
+              controller.start();
+            },
+            child: Text("Tentar Novamente"),
+            style: TextButton.styleFrom(
+              primary: Colors.red,
+              padding: EdgeInsets.all(15),
+              side: BorderSide(
                 color: Colors.red,
               ),
             ),
-            TextButton(
-              onPressed: () {
-                controller.start();
-              },
-              child: Text("Tentar Novamente"),
-              style: TextButton.styleFrom(
-                primary: Theme.of(context).primaryColor,
-                padding: EdgeInsets.all(15),
-                side: BorderSide(
-                  color: Theme.of(context).primaryColor,
-                ),
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
