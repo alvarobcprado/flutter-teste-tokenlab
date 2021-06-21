@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:teste_tokenlab/app/controllers/home_controller.dart';
-import 'package:teste_tokenlab/app/views/home_view/widgets/home_view_error_state.dart';
 import 'package:teste_tokenlab/app/views/home_view/widgets/home_view_sucess_state_widget.dart';
+import 'package:teste_tokenlab/app/views/shared/error_state_view_widget.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({Key? key}) : super(key: key);
@@ -31,7 +31,7 @@ class _HomeViewState extends State<HomeView> {
         );
 
       case HomeState.error:
-        return HomeViewErrorStateWidget(controller: controller);
+        return ErrorStateViewWidget(func: () => controller.start());
 
       case HomeState.succesful:
         return HomeViewSucessStateWidget(controller: controller);

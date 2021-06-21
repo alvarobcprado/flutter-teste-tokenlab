@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:teste_tokenlab/app/controllers/home_controller.dart';
 
 ///Widget para ser exibido quando ocorrer algum erro na requisição da homeView
-class HomeViewErrorStateWidget extends StatelessWidget {
-  const HomeViewErrorStateWidget({Key? key, required this.controller})
-      : super(key: key);
+class ErrorStateViewWidget extends StatelessWidget {
+  const ErrorStateViewWidget({Key? key, required this.func}) : super(key: key);
 
-  final HomeController controller;
+  final Function() func;
 
   @override
   Widget build(BuildContext context) {
@@ -22,9 +20,7 @@ class HomeViewErrorStateWidget extends StatelessWidget {
           ),
           SizedBox(height: 15),
           TextButton(
-            onPressed: () {
-              controller.start();
-            },
+            onPressed: func,
             child: Text("Tentar Novamente"),
             style: TextButton.styleFrom(
               primary: Colors.red,
