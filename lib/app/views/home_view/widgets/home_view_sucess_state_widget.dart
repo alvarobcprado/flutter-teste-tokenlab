@@ -1,4 +1,3 @@
-// import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:teste_tokenlab/app/controllers/home_controller.dart';
 
@@ -26,7 +25,6 @@ class HomeViewSucessStateWidget extends StatelessWidget {
       itemBuilder: (context, index) {
         return GestureDetector(
           onTap: () {
-            print("click");
             Navigator.pushNamed(
               context,
               "/details",
@@ -35,36 +33,12 @@ class HomeViewSucessStateWidget extends StatelessWidget {
           },
           child: Column(
             children: [
-              // Expanded(
-              //   flex: 10,
-              //   child: Container(
-              //     width: 200,
-              //     height: 300,
-              //     child: CachedNetworkImage(
-              //       imageUrl: controller.moviesList[index].posterUrl,
-              //       placeholder: (context, _) =>
-              //           Image.asset('assets/images/placeholder.png'),
-              //       errorWidget: (context, _, __) => Stack(
-              //         alignment: Alignment.center,
-              //         children: [
-              //           Image.asset(
-              //             "assets/images/placeholder.png",
-              //           ),
-              //           Icon(Icons.warning),
-              //         ],
-              //       ),
-              //     ),
-              //   ),
-              // ),
               Expanded(
                 flex: 10,
-                child: FadeInImage(
-                  fit: BoxFit.fitHeight,
-                  image: NetworkImage(
-                    controller.moviesList[index].posterUrl,
-                  ),
-                  placeholder: AssetImage('assets/images/placeholder.png'),
-                  imageErrorBuilder: (context, error, stackTrace) {
+                child: Image.network(
+                  controller.moviesList[index].posterUrl,
+                  errorBuilder: (BuildContext context, Object exception,
+                      StackTrace? stackTrace) {
                     return Stack(
                       alignment: Alignment.center,
                       children: [

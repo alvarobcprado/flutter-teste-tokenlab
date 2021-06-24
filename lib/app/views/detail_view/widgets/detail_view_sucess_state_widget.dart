@@ -22,13 +22,10 @@ class DetailViewSucessStateWidget extends StatelessWidget {
           children: [
             Expanded(
               flex: 3,
-              child: FadeInImage(
-                alignment: Alignment.topLeft,
-                image: NetworkImage(
-                  movie.posterUrl,
-                ),
-                placeholder: AssetImage('assets/images/placeholder.png'),
-                imageErrorBuilder: (context, error, stackTrace) {
+              child: Image.network(
+                movie.posterUrl,
+                errorBuilder: (BuildContext context, Object exception,
+                    StackTrace? stackTrace) {
                   return Stack(
                     alignment: Alignment.center,
                     children: [
