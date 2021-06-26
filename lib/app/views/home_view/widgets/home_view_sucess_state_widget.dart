@@ -19,7 +19,7 @@ class HomeViewSucessStateWidget extends StatelessWidget {
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisSpacing: 10,
         crossAxisCount: 2,
-        mainAxisSpacing: 0,
+        mainAxisSpacing: 5,
         childAspectRatio: 2 / 3,
       ),
       itemBuilder: (context, index) {
