@@ -33,7 +33,9 @@ void main() {
       test(
         'should complete HomeViewState success cycle after call tryStartMovies',
         () async {
-          when(mockedUc.getFuture()).thenAnswer((_) async => []);
+          when(mockedUc.getFuture(
+            params: anyNamed('params'),
+          )).thenAnswer((_) async => []);
           homeBloc.process(const TryStartMovies());
           await expectLater(
             homeBloc.stateStream,
@@ -51,7 +53,9 @@ void main() {
         'should emits NetworkError state if useCase'
         'throws a NoConnectionException',
         () async {
-          when(mockedUc.getFuture()).thenThrow(NoConnectionException());
+          when(mockedUc.getFuture(
+            params: anyNamed('params'),
+          )).thenThrow(NoConnectionException());
 
           homeBloc.process(const TryStartMovies());
           await expectLater(
@@ -69,7 +73,9 @@ void main() {
       test(
         'should emits Error state if useCase throws an exception',
         () async {
-          when(mockedUc.getFuture()).thenThrow(Exception());
+          when(mockedUc.getFuture(
+            params: anyNamed('params'),
+          )).thenThrow(Exception());
 
           homeBloc.process(const TryStartMovies());
           await expectLater(
