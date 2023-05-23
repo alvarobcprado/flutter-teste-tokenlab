@@ -4,7 +4,6 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:teste_tokenlab/intl_commons.dart';
-import 'package:teste_tokenlab/presentation/common/states/states.dart';
 import 'package:teste_tokenlab/presentation/common/widgets/loading_state_widget.dart';
 import 'package:teste_tokenlab/presentation/movies/list/movies_list/home_view.dart';
 import 'package:teste_tokenlab/presentation/movies/list/movies_list/home_view_bloc.dart';

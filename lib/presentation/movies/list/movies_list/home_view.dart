@@ -1,10 +1,10 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
 import 'package:focus_detector/focus_detector.dart';
+import 'package:re_state_action/re_state_action.dart';
 
 // Project imports:
 import '../../../../intl_commons.dart';
-import '../../../common/states/states.dart';
 import '../../../common/widgets/manage_state_view.dart';
 import 'home_view_bloc.dart';
 import 'home_view_state.dart';
@@ -37,17 +37,17 @@ class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) => FocusDetector(
         key: focusGainedKey,
-        onFocusGained: () => _homeBloc.tryStartMovies.add(null),
-        child: StreamBuilder<HomeViewState>(
-          stream: _homeBloc.onStateChange,
-          builder: (context, homeState) =>
-              ManageStateView<Loading, Error, NetworkError, Success>(
-            viewStateSnapshot: homeState,
+        onFocusGained: () => _homeBloc.process(const TryStartMovies()),
+        child: ReStateWidget(
+          reState: _homeBloc,
+          builder: (context, homeState, _) => ManageStateView<HomeViewState,
+              Loading, Error, NetworkError, Success>(
+            viewState: homeState,
             successView: (context, successData) => HomeViewSucessStateWidget(
               key: const ValueKey('homeView-successState'),
               moviesList: successData.movieList,
             ),
-            onTryAgain: () => _homeBloc.tryStartMovies.add(null),
+            onTryAgain: () => _homeBloc.process(const TryStartMovies()),
             errorText: S.of(context).home_error_state,
           ),
         ),
