@@ -9,6 +9,7 @@ import 'package:teste_tokenlab/presentation/movies/detail/detail_view.dart';
 import 'package:teste_tokenlab/presentation/movies/detail/detail_view_bloc.dart';
 import 'package:teste_tokenlab/presentation/movies/detail/detail_view_state.dart';
 import 'package:teste_tokenlab/presentation/movies/detail/widgets/detail_view_sucess_state_widget.dart';
+
 import 'detail_view_bloc_test_data.dart';
 import 'detail_view_widget_test.mocks.dart';
 
@@ -16,7 +17,7 @@ import 'detail_view_widget_test.mocks.dart';
 void main() {
   late MockDetailViewBloc detailViewBloc;
   late PublishSubject<DetailViewState> movieStatePublishController;
-  late PublishSubject<EventActionState> eventActionPublishController;
+  late PublishSubject<DetailViewAction> eventActionPublishController;
 
   setUpAll(
     () {
@@ -28,7 +29,7 @@ void main() {
     () {
       detailViewBloc = MockDetailViewBloc();
       movieStatePublishController = PublishSubject<DetailViewState>();
-      eventActionPublishController = PublishSubject<EventActionState>();
+      eventActionPublishController = PublishSubject<DetailViewAction>();
     },
   );
 

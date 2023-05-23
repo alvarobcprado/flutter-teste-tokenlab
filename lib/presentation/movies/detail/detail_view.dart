@@ -1,15 +1,14 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
-
+import 'package:re_state_action/re_state_action.dart';
 // Package imports:
 import 'package:rxdart/rxdart.dart';
+import 'package:teste_tokenlab/presentation/movies/detail/detail_view_model.dart';
 
 // Project imports:
 import '../../../intl_commons.dart';
-import '../../common/states/states.dart';
 import '../../common/widgets/manage_state_view.dart';
 import 'detail_view_bloc.dart';
-import 'detail_view_model.dart';
 import 'detail_view_state.dart';
 import 'widgets/detail_view_sucess_state_widget.dart';
 
@@ -40,7 +39,10 @@ class _DetailsViewState extends State<DetailsView> {
     _detailViewSubscriptions.clear();
   }
 
-  void _toggleFavoriteSnackBar(BuildContext context, snackbarEvent) {
+  void _toggleFavoriteSnackBar(
+    BuildContext context,
+    DetailViewAction snackbarEvent,
+  ) {
     final favoriteSnackbar = SnackBar(
       content: Text(
         snackbarEvent.snackbarText,
@@ -54,25 +56,22 @@ class _DetailsViewState extends State<DetailsView> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    _detailViewSubscriptions.add(
-      _detailBloc.onEventAction.listen(
-        (snackBar) => _toggleFavoriteSnackBar(context, snackBar),
-      ),
-    );
-    return StreamBuilder<DetailViewState>(
-      stream: _detailBloc.onMovieDetailStateChange,
-      builder: (context, detailStateSnap) =>
-          ManageStateView<Loading, Error, NetworkError, Success>(
-        viewStateSnapshot: detailStateSnap,
-        successView: (context, detailSuccess) => DetailViewSucessStateWidget(
-          movieDetail: detailSuccess.movieDetail.toVM(),
-          toggleFavorite: () =>
-              _detailBloc.toggleFavorite.add(detailSuccess.movieDetail),
+  Widget build(BuildContext context) => ReStateActionWidget(
+        reState: _detailBloc,
+        onAction: (action) => _toggleFavoriteSnackBar(context, action),
+        builder: (context, detailState, _) => ManageStateView<DetailViewState,
+            Loading, Error, NetworkError, Success>(
+          viewState: detailState,
+          successView: (context, detailSuccess) => DetailViewSucessStateWidget(
+            movieDetail: detailSuccess.movieDetail.toVM(),
+            toggleFavorite: () => _detailBloc.process(
+              ToggleFavorite(
+                movieDetail: detailSuccess.movieDetail,
+              ),
+            ),
+          ),
+          onTryAgain: () => _detailBloc.process(const TryStartMovieDetail()),
+          errorText: S.of(context).detail_error_state,
         ),
-        onTryAgain: () => _detailBloc.tryStartMovieDetail.add(null),
-        errorText: S.of(context).detail_error_state,
-      ),
-    );
-  }
+      );
 }
