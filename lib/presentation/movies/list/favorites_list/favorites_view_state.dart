@@ -1,6 +1,7 @@
 // Project imports:
-import '../../../common/states/states.dart';
 import 'favorites_view_model.dart';
+
+sealed class FavoritesViewState {}
 
 class Success implements FavoritesViewState {
   const Success({required this.favoriteMovieList});
@@ -17,4 +18,10 @@ class Error implements FavoritesViewState {
 
 class NetworkError implements FavoritesViewState {
   const NetworkError();
+}
+
+sealed class FavoritesViewEvent {}
+
+class TryStartFavorites implements FavoritesViewEvent {
+  const TryStartFavorites();
 }

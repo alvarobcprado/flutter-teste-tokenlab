@@ -1,12 +1,11 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
-
 // Package imports:
 import 'package:focus_detector/focus_detector.dart';
+import 'package:re_state_action/re_state_action.dart';
 
 // Project imports:
 import '../../../../intl_commons.dart';
-import '../../../common/states/states.dart';
 import '../../../common/widgets/manage_state_view.dart';
 import 'favorites_bloc.dart';
 import 'favorites_view_state.dart';
@@ -39,12 +38,12 @@ class _FavoritesViewState extends State<FavoritesView> {
   @override
   Widget build(BuildContext context) => FocusDetector(
         key: _focusDetectorKey,
-        onFocusGained: () => _favoriteBloc.onFocused.add(null),
-        child: StreamBuilder<FavoritesViewState>(
-          stream: _favoriteBloc.onStateChange,
-          builder: (context, favoritesState) =>
-              ManageStateView<Loading, Error, NetworkError, Success>(
-            viewStateSnapshot: favoritesState,
+        onFocusGained: () => _favoriteBloc.process(const TryStartFavorites()),
+        child: ReStateWidget(
+          reState: _favoriteBloc,
+          builder: (context, favoritesState, _) => ManageStateView<
+              FavoritesViewState, Loading, Error, NetworkError, Success>(
+            viewState: favoritesState,
             successView: (context, successData) => FavoritesViewSuccessState(
               favoriteMovieList: successData.favoriteMovieList,
             ),

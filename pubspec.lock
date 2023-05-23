@@ -708,6 +708,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.2.1"
+  re_state_action:
+    dependency: "direct main"
+    description:
+      name: re_state_action
+      sha256: f4cba138df18258bcfdbb7bf1ba72fad677d84f6b087d19732235f5d994989de
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.0"
   rxdart:
     dependency: "direct main"
     description:

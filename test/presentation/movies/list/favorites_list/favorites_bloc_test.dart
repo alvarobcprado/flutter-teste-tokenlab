@@ -4,6 +4,7 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:teste_tokenlab/presentation/movies/list/favorites_list/favorites_bloc.dart';
 import 'package:teste_tokenlab/presentation/movies/list/favorites_list/favorites_view_state.dart';
+
 import 'favorites_bloc_test.mocks.dart';
 
 @GenerateMocks([GetMovieFavoriteListUc])
@@ -32,11 +33,12 @@ void main() {
         'should complete HomeViewState success cycle after call onFocused',
         () async {
           when(mockedUc.getFuture()).thenAnswer((_) async => []);
-          favoritesBloc.onFocused.add(null);
+          favoritesBloc.process(const TryStartFavorites());
           await expectLater(
-            favoritesBloc.onStateChange,
+            favoritesBloc.stateStream,
             emitsInOrder(
               [
+                isA<Loading>(),
                 isA<Loading>(),
                 isA<Success>(),
               ],
@@ -48,13 +50,12 @@ void main() {
         'should emits Error state if useCase throws an exception',
         () async {
           when(mockedUc.getFuture()).thenThrow(Exception());
-
-          favoritesBloc.onFocused.add(null);
-
+          favoritesBloc.process(const TryStartFavorites());
           await expectLater(
-            favoritesBloc.onStateChange,
+            favoritesBloc.stateStream,
             emitsInOrder(
               [
+                isA<Loading>(),
                 isA<Loading>(),
                 isA<Error>(),
               ],
