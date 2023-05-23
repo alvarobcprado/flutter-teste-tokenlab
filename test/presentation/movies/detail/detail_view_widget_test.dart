@@ -4,7 +4,6 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:teste_tokenlab/intl_commons.dart';
-import 'package:teste_tokenlab/presentation/common/states/states.dart';
 import 'package:teste_tokenlab/presentation/movies/detail/detail_view.dart';
 import 'package:teste_tokenlab/presentation/movies/detail/detail_view_bloc.dart';
 import 'package:teste_tokenlab/presentation/movies/detail/detail_view_state.dart';
@@ -25,13 +24,11 @@ void main() {
     },
   );
 
-  setUp(
-    () {
-      detailViewBloc = MockDetailViewBloc();
-      movieStatePublishController = PublishSubject<DetailViewState>();
-      eventActionPublishController = PublishSubject<DetailViewAction>();
-    },
-  );
+  setUp(() {
+    movieStatePublishController = PublishSubject<DetailViewState>();
+    eventActionPublishController = PublishSubject<DetailViewAction>();
+    detailViewBloc = MockDetailViewBloc();
+  });
 
   tearDown(
     () {
@@ -58,10 +55,10 @@ void main() {
   testWidgets(
     'should build movie detail widget when bloc emits success state',
     (tester) async {
-      when(detailViewBloc.onMovieDetailStateChange).thenAnswer(
+      when(detailViewBloc.stateStream).thenAnswer(
         (_) => movieStatePublishController,
       );
-      when(detailViewBloc.onEventAction).thenAnswer(
+      when(detailViewBloc.actionStream).thenAnswer(
         (_) => eventActionPublishController,
       );
       await _createWidget(tester);
@@ -85,10 +82,10 @@ void main() {
   testWidgets(
     'should build error page when bloc emits error state',
     (tester) async {
-      when(detailViewBloc.onMovieDetailStateChange).thenAnswer(
+      when(detailViewBloc.stateStream).thenAnswer(
         (_) => movieStatePublishController,
       );
-      when(detailViewBloc.onEventAction).thenAnswer(
+      when(detailViewBloc.actionStream).thenAnswer(
         (_) => eventActionPublishController,
       );
       await _createWidget(tester);
@@ -105,10 +102,10 @@ void main() {
     'should show snackbar with success text when bloc emits '
     ' success state and event action state',
     (tester) async {
-      when(detailViewBloc.onMovieDetailStateChange).thenAnswer(
+      when(detailViewBloc.stateStream).thenAnswer(
         (_) => movieStatePublishController,
       );
-      when(detailViewBloc.onEventAction).thenAnswer(
+      when(detailViewBloc.actionStream).thenAnswer(
         (_) => eventActionPublishController,
       );
       await _createWidget(tester);
@@ -141,12 +138,16 @@ void main() {
     'should show snackbar with error text when bloc emits '
     ' success state and event action error state',
     (tester) async {
-      when(detailViewBloc.onMovieDetailStateChange).thenAnswer(
+      when(detailViewBloc.stateStream).thenAnswer(
         (_) => movieStatePublishController,
       );
-      when(detailViewBloc.onEventAction).thenAnswer(
+      when(detailViewBloc.actionStream).thenAnswer(
         (_) => eventActionPublishController,
       );
+      when(detailViewBloc.state).thenAnswer(
+        (_) => Success(movieDetail: movieDetailTest),
+      );
+
       await _createWidget(tester);
       await tester.pump();
       movieStatePublishController.add(

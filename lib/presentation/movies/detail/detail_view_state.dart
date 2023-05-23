@@ -5,7 +5,7 @@ import 'package:domain/entities/movie_detail.dart';
 // Project imports:
 import '../../../intl_commons.dart';
 
-sealed class DetailViewState {}
+abstract class DetailViewState {}
 
 class Success implements DetailViewState {
   const Success({
@@ -26,7 +26,7 @@ class Loading implements DetailViewState {
   const Loading();
 }
 
-sealed class DetailViewAction {
+abstract class DetailViewAction {
   const DetailViewAction(
     this.snackbarText,
   );
@@ -46,7 +46,7 @@ class FavoriteErrorSnackbar extends DetailViewAction {
   FavoriteErrorSnackbar() : super(S.current.favorite_error);
 }
 
-sealed class DetailViewEvent {}
+abstract class DetailViewEvent {}
 
 class TryStartMovieDetail implements DetailViewEvent {
   const TryStartMovieDetail();

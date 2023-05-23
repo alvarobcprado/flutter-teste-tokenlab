@@ -53,7 +53,7 @@ void main() {
   testWidgets(
     'should load list of movies when bloc emits success state',
     (tester) async {
-      when(homeViewBloc.onStateChange).thenAnswer(
+      when(homeViewBloc.stateStream).thenAnswer(
         (_) => behaviorController,
       );
       await tester.runAsync(
@@ -75,7 +75,7 @@ void main() {
   testWidgets(
     'should build error page view when bloc emits error state',
     (tester) async {
-      when(homeViewBloc.onStateChange).thenAnswer(
+      when(homeViewBloc.stateStream).thenAnswer(
         (_) => behaviorController,
       );
       await tester.runAsync(
@@ -97,7 +97,7 @@ void main() {
   testWidgets(
     'should build loading page view when bloc emits loading state',
     (tester) async {
-      when(homeViewBloc.onStateChange).thenAnswer(
+      when(homeViewBloc.stateStream).thenAnswer(
         (_) => behaviorController,
       );
       await tester.runAsync(
