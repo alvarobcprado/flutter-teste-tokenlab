@@ -32,7 +32,9 @@ void main() {
       test(
         'should complete HomeViewState success cycle after call onFocused',
         () async {
-          when(mockedUc.getFuture()).thenAnswer((_) async => []);
+          when(mockedUc.getFuture(
+            params: anyNamed('params'),
+          )).thenAnswer((_) async => []);
           favoritesBloc.process(const TryStartFavorites());
           await expectLater(
             favoritesBloc.stateStream,
@@ -49,7 +51,9 @@ void main() {
       test(
         'should emits Error state if useCase throws an exception',
         () async {
-          when(mockedUc.getFuture()).thenThrow(Exception());
+          when(mockedUc.getFuture(
+            params: anyNamed('params'),
+          )).thenThrow(Exception());
           favoritesBloc.process(const TryStartFavorites());
           await expectLater(
             favoritesBloc.stateStream,
