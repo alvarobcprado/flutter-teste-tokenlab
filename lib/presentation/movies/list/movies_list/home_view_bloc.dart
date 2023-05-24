@@ -4,59 +4,40 @@ import 'dart:async';
 // Package imports:
 import 'package:domain/exceptions.dart';
 import 'package:domain/use_cases/get_movie_list_uc.dart';
-import 'package:rxdart/rxdart.dart';
+import 'package:re_state_action/re_state_action.dart';
 
 // Project imports:
-import '../../../common/states/states.dart';
 import 'home_view_model.dart';
 import 'home_view_state.dart';
 
-class HomeViewBloc {
+class HomeViewBloc extends ReStateEvent<HomeViewState, HomeViewEvent> {
   HomeViewBloc({
     required this.getMovieListUc,
-  }) {
-    _subscriptions.add(
-      _tryStartMoviesController.stream
-          .flatMap(
-            (_) => _tryFetchMovies(),
-          )
-          .listen(_onStateChangeController.add),
-    );
+  }) : super(const Loading()) {
+    on<TryStartMovies>(_tryStartMovies);
   }
 
   final GetMovieListUc getMovieListUc;
 
-  final _subscriptions = CompositeSubscription();
-
-  final _tryStartMoviesController = PublishSubject<void>();
-  Sink<void> get tryStartMovies => _tryStartMoviesController.sink;
-
-  final _onStateChangeController = BehaviorSubject<HomeViewState>();
-  Stream<HomeViewState> get onStateChange => _onStateChangeController.stream;
-
-  Stream<HomeViewState> _tryFetchMovies() async* {
-    yield const Loading();
+  Future<void> _tryStartMovies(TryStartMovies event) async {
+    emitState(const Loading());
 
     try {
-      yield Success(
-        movieList: await getMovieListUc.getFuture(params: null).then(
-              (moviesInDM) => moviesInDM
-                  .map(
-                    (movieInDM) => movieInDM.toVM(),
-                  )
-                  .toList(),
-            ),
+      emitState(
+        Success(
+          movieList: await getMovieListUc.getFuture(params: null).then(
+                (moviesInDM) => moviesInDM
+                    .map(
+                      (movieInDM) => movieInDM.toVM(),
+                    )
+                    .toList(),
+              ),
+        ),
       );
     } on NoConnectionException {
-      yield const NetworkError();
+      emitState(const NetworkError());
     } catch (e) {
-      yield const Error();
+      emitState(const Error());
     }
-  }
-
-  void dispose() {
-    _tryStartMoviesController.close();
-    _onStateChangeController.close();
-    _subscriptions.dispose();
   }
 }

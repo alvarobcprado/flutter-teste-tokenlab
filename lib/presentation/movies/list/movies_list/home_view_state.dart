@@ -1,6 +1,7 @@
 // Project imports:
-import '../../../common/states/states.dart';
 import 'home_view_model.dart';
+
+abstract class HomeViewState {}
 
 class Success implements HomeViewState {
   const Success({required this.movieList});
@@ -17,4 +18,10 @@ class Error implements HomeViewState {
 
 class NetworkError implements HomeViewState {
   const NetworkError();
+}
+
+abstract class HomeViewEvent {}
+
+class TryStartMovies implements HomeViewEvent {
+  const TryStartMovies();
 }

@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
-import 'package:rxdart/rxdart.dart';
 import 'package:teste_tokenlab/intl_commons.dart';
-import 'package:teste_tokenlab/presentation/common/states/states.dart';
 import 'package:teste_tokenlab/presentation/common/widgets/loading_state_widget.dart';
 import 'package:teste_tokenlab/presentation/movies/list/movies_list/home_view.dart';
 import 'package:teste_tokenlab/presentation/movies/list/movies_list/home_view_bloc.dart';
@@ -16,7 +14,6 @@ import 'home_view_widget_test.mocks.dart';
 @GenerateMocks([HomeViewBloc])
 void main() {
   late MockHomeViewBloc homeViewBloc;
-  late BehaviorSubject<HomeViewState> behaviorController;
 
   Future<void> _createWidget(WidgetTester tester) async {
     await tester.pumpWidget(
@@ -40,13 +37,11 @@ void main() {
   setUp(
     () {
       homeViewBloc = MockHomeViewBloc();
-      behaviorController = BehaviorSubject<HomeViewState>();
     },
   );
 
   tearDown(
     () {
-      behaviorController.close();
       homeViewBloc.dispose();
     },
   );
@@ -54,13 +49,13 @@ void main() {
   testWidgets(
     'should load list of movies when bloc emits success state',
     (tester) async {
-      when(homeViewBloc.onStateChange).thenAnswer(
-        (_) => behaviorController,
+      when(homeViewBloc.state).thenReturn(
+        Success(movieList: listMoviesTest),
       );
+
       await tester.runAsync(
         () async {
           await _createWidget(tester);
-          behaviorController.add(Success(movieList: listMoviesTest));
           await tester.pump();
           await tester.pump();
           expect(
@@ -76,14 +71,12 @@ void main() {
   testWidgets(
     'should build error page view when bloc emits error state',
     (tester) async {
-      when(homeViewBloc.onStateChange).thenAnswer(
-        (_) => behaviorController,
+      when(homeViewBloc.state).thenReturn(
+        const Error(),
       );
       await tester.runAsync(
         () async {
           await _createWidget(tester);
-          behaviorController.add(const Error());
-
           await tester.pumpAndSettle();
           expect(
             find.byKey(const ValueKey('errorPage')),
@@ -98,14 +91,12 @@ void main() {
   testWidgets(
     'should build loading page view when bloc emits loading state',
     (tester) async {
-      when(homeViewBloc.onStateChange).thenAnswer(
-        (_) => behaviorController,
+      when(homeViewBloc.state).thenReturn(
+        const Loading(),
       );
       await tester.runAsync(
         () async {
           await _createWidget(tester);
-          behaviorController.add(const Loading());
-
           await tester.pump();
 
           expect(find.byType(LoadingStateWidget), findsWidgets);

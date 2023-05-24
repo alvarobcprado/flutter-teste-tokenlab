@@ -5,6 +5,7 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:teste_tokenlab/presentation/movies/list/movies_list/home_view_bloc.dart';
 import 'package:teste_tokenlab/presentation/movies/list/movies_list/home_view_state.dart';
+
 import 'home_view_bloc_test.mocks.dart';
 
 @GenerateMocks([GetMovieListUc])
@@ -32,12 +33,15 @@ void main() {
       test(
         'should complete HomeViewState success cycle after call tryStartMovies',
         () async {
-          when(mockedUc.getFuture()).thenAnswer((_) async => []);
-          homeBloc.tryStartMovies.add(null);
+          when(mockedUc.getFuture(
+            params: anyNamed('params'),
+          )).thenAnswer((_) async => []);
+          homeBloc.process(const TryStartMovies());
           await expectLater(
-            homeBloc.onStateChange,
+            homeBloc.stateStream,
             emitsInOrder(
               [
+                isA<Loading>(),
                 isA<Loading>(),
                 isA<Success>(),
               ],
@@ -49,14 +53,16 @@ void main() {
         'should emits NetworkError state if useCase'
         'throws a NoConnectionException',
         () async {
-          when(mockedUc.getFuture()).thenThrow(NoConnectionException());
+          when(mockedUc.getFuture(
+            params: anyNamed('params'),
+          )).thenThrow(NoConnectionException());
 
-          homeBloc.tryStartMovies.add(null);
-
+          homeBloc.process(const TryStartMovies());
           await expectLater(
-            homeBloc.onStateChange,
+            homeBloc.stateStream,
             emitsInOrder(
               [
+                isA<Loading>(),
                 isA<Loading>(),
                 isA<NetworkError>(),
               ],
@@ -67,14 +73,16 @@ void main() {
       test(
         'should emits Error state if useCase throws an exception',
         () async {
-          when(mockedUc.getFuture()).thenThrow(Exception());
+          when(mockedUc.getFuture(
+            params: anyNamed('params'),
+          )).thenThrow(Exception());
 
-          homeBloc.tryStartMovies.add(null);
-
+          homeBloc.process(const TryStartMovies());
           await expectLater(
-            homeBloc.onStateChange,
+            homeBloc.stateStream,
             emitsInOrder(
               [
+                isA<Loading>(),
                 isA<Loading>(),
                 isA<Error>(),
               ],

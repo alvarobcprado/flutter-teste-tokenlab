@@ -1,15 +1,16 @@
 import 'package:domain/exceptions.dart';
 import 'package:domain/use_cases/add_favorite_uc.dart';
 import 'package:domain/use_cases/get_movie_detail_uc.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_test/flutter_test.dart';
 import 'package:domain/use_cases/remove_favorite_uc.dart';
 import 'package:domain/use_cases/update_movie_favorite_uc.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:teste_tokenlab/intl_commons.dart';
 import 'package:teste_tokenlab/presentation/movies/detail/detail_view_bloc.dart';
 import 'package:teste_tokenlab/presentation/movies/detail/detail_view_state.dart';
+
 import 'detail_view_bloc_test.mocks.dart';
 import 'detail_view_bloc_test_data.dart';
 
@@ -37,17 +38,15 @@ void main() {
     },
   );
 
-  setUp(
-    () {
-      detailViewBloc = DetailViewBloc(
-        movieId: 1,
-        getMovieDetailUc: mockGetMovieDetailUc,
-        updateMovieFavoriteUc: mockUpdateMovieFavoriteUc,
-        addFavoriteUc: mockAddFavoriteUc,
-        removeFavoriteUc: mockRemoveFavoriteUc,
-      );
-    },
-  );
+  void setUpBloc() {
+    detailViewBloc = DetailViewBloc(
+      movieId: 1,
+      getMovieDetailUc: mockGetMovieDetailUc,
+      updateMovieFavoriteUc: mockUpdateMovieFavoriteUc,
+      addFavoriteUc: mockAddFavoriteUc,
+      removeFavoriteUc: mockRemoveFavoriteUc,
+    );
+  }
 
   tearDown(() => detailViewBloc.dispose());
 
@@ -65,10 +64,13 @@ void main() {
             (_) async => movieDetailTest,
           );
 
+          setUpBloc();
+
           await expectLater(
-            detailViewBloc.onMovieDetailStateChange,
+            detailViewBloc.stateStream,
             emitsInOrder(
               [
+                isA<Loading>(),
                 isA<Loading>(),
                 isA<Success>(),
               ],
@@ -87,13 +89,15 @@ void main() {
           ).thenAnswer(
             (_) async => movieDetailTest,
           );
+          setUpBloc();
 
-          detailViewBloc.tryStartMovieDetail.add(null);
+          detailViewBloc.process(const TryStartMovieDetail());
 
           await expectLater(
-            detailViewBloc.onMovieDetailStateChange,
+            detailViewBloc.stateStream,
             emitsInOrder(
               [
+                isA<Loading>(),
                 isA<Loading>(),
                 isA<Success>(),
               ],
@@ -111,11 +115,13 @@ void main() {
               params: anyNamed('params'),
             ),
           ).thenThrow(NoConnectionException());
+          setUpBloc();
 
           await expectLater(
-            detailViewBloc.onMovieDetailStateChange,
+            detailViewBloc.stateStream,
             emitsInOrder(
               [
+                isA<Loading>(),
                 isA<Loading>(),
                 isA<NetworkError>(),
               ],
@@ -132,11 +138,13 @@ void main() {
               params: anyNamed('params'),
             ),
           ).thenThrow(Exception());
+          setUpBloc();
 
           await expectLater(
-            detailViewBloc.onMovieDetailStateChange,
+            detailViewBloc.stateStream,
             emitsInOrder(
               [
+                isA<Loading>(),
                 isA<Loading>(),
                 isA<Error>(),
               ],
@@ -180,13 +188,15 @@ void main() {
           ).thenAnswer(
             (_) async {},
           );
+          setUpBloc();
 
-          detailViewBloc.toggleFavorite.add(movieDetailTest);
+          detailViewBloc.process(ToggleFavorite(movieDetail: movieDetailTest));
 
           await expectLater(
-            detailViewBloc.onMovieDetailStateChange,
+            detailViewBloc.stateStream,
             emitsInOrder(
               [
+                isA<Loading>(),
                 isA<Loading>(),
                 isA<Success>(),
                 isA<Success>(),
@@ -221,14 +231,16 @@ void main() {
           ).thenAnswer(
             (_) async {},
           );
+          setUpBloc();
 
           movieDetailTest.isFavorite = true;
-          detailViewBloc.toggleFavorite.add(movieDetailTest);
+          detailViewBloc.process(ToggleFavorite(movieDetail: movieDetailTest));
 
           await expectLater(
-            detailViewBloc.onMovieDetailStateChange,
+            detailViewBloc.stateStream,
             emitsInOrder(
               [
+                isA<Loading>(),
                 isA<Loading>(),
                 isA<Success>(),
                 isA<Success>(),
@@ -261,13 +273,15 @@ void main() {
           ).thenAnswer(
             (_) async {},
           );
+          setUpBloc();
 
-          detailViewBloc.toggleFavorite.add(movieDetailTest);
+          detailViewBloc.process(ToggleFavorite(movieDetail: movieDetailTest));
 
           await expectLater(
-            detailViewBloc.onMovieDetailStateChange,
+            detailViewBloc.stateStream,
             emitsInOrder(
               [
+                isA<Loading>(),
                 isA<Loading>(),
                 isA<Success>(),
               ],
